@@ -1,27 +1,46 @@
-// вторая строка tr вторая ячейка td 
-let x = document.querySelector('body table tbody tr:nth-child(2) td:nth-child(2)').innerHTML; 
-// console.log(x);
+
+
+const getSalaryTotal = () => [...document.querySelectorAll(`body table tbody tr:nth-last-child(n+3) td:nth-child(7)`)].map(el => +el.innerHTML).reduce((acc, current) => acc + current); 
+console.log(getSalaryTotal());
+
+
+const getSalaryAVG = () => [...document.querySelectorAll(`body table tbody tr:nth-last-child(n+3) td:nth-child(7)`)].map(el => +el.innerHTML).reduce((acc, el, ind, arr) => {return Math.round((count += +el) / arr.length)}, count = 0);
+console.log(getSalaryAVG());
+
+
+const getGenderAVG = (gender) => [...document.querySelectorAll(`body table tbody tr:nth-last-child(n+3) td:nth-child(n+6)`)].map(el => el.innerHTML).filter((el, ind, arr) => el = +el && arr[ind-1] == gender).reduce((acc, el, ind, arr) => {return Math.round((count += +el) / arr.length)}, count = 0);;
+console.log(getGenderAVG('Famale'));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 function getObjectFromTable () {
-    let count = [...document.querySelectorAll(`body table tbody tr`)].length - 2; 
+    let obj = [];
+    let objLength = [...document.querySelectorAll(`body table tbody tr`)].length - 2; 
     let keys = [...document.querySelectorAll('table thead th')].map(el => el.innerHTML.replace(/\s+/g, '').toLowerCase()); 
-    // let row = [...document.querySelectorAll(`body table tbody tr:nth-child(${n}) td`)].map(el => el.innerHTML); 
-    let res = [];
-    
-    for (i = 0; i < count; i++) {
-        res[i] = {}
+    for (i = 0; i < objLength; i++) {
+        obj[i] = {}
         let row = [...document.querySelectorAll(`body table tbody tr:nth-child(${i+1}) td`)].map(el => el.innerHTML); 
         for (let j = 0; j < keys.length; j++) {
-            res[i][keys[j]] = row[j]
+            obj[i][keys[j]] = row[j]
         }
     }
-    console.log(res);
-    return res;
+    return obj;
 }
-
-getObjectFromTable()
-
+let stuff = getObjectFromTable()
 
 
 
@@ -47,9 +66,3 @@ getObjectFromTable()
 
 
 
-
-
-
-// let str = '123354646546546';
-// let summ = [].map.call(str, (acc, el) => acc + +el, 0);
-// console.log(summ);
